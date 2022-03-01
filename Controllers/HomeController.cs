@@ -14,21 +14,52 @@ namespace Kutse_App.Controllers
         {
             ViewBag.Message = "Ootan sind oma peole! Palun tule kindlasti!";
             ViewBag.Tittle = "Kutse kõik";
+            string[] kuu = {"Jaanuari","Veebruari", "Märts", "Aprill" };
             int hour = DateTime.Now.Hour;
-            /*int month = DateTime.Now.Month;
-            if (month <=6)
-            {
-                ViewBag.Greeting = month < 10 ? "Tere hommikust!" : "Tere päevast";
-            }
-            else if (month >6)
-            {
+            int month = DateTime.Now.Month;
 
-            }*/
-            if (hour <= 15)
+            string prazdnik = "";
+            /*if (DateTime.Now.Month==1){prazdnik = "Jaanuari pidu";}
+            else if (DateTime.Now.Month == 2){prazdnik = "Veebruari pidu";}
+            else if (DateTime.Now.Month == 3){prazdnik = "Märts pidu";}
+            else if (DateTime.Now.Month == 4){prazdnik = "Aprill pidu";}
+            else if (DateTime.Now.Month == 5){prazdnik = "Mai pidu";}
+            else if (DateTime.Now.Month == 6){prazdnik = "Juuni pidu";}
+            else if (DateTime.Now.Month == 7){prazdnik = "Juuli pidu";}
+            else if (DateTime.Now.Month == 8){prazdnik = "August pidu";}
+            else if (DateTime.Now.Month == 9){prazdnik = "September pidu";}
+            else if (DateTime.Now.Month == 10){ prazdnik = "Oktoober pidu";}
+            else if (DateTime.Now.Month == 11){prazdnik = "November pidu";}
+            else if (DateTime.Now.Month == 12){prazdnik = "Detsember pidu";}*/
+
+            if (DateTime.Now.Month == 1) 
+            {
+                prazdnik = "Jaanuari pidu";
+            }
+            else if (DateTime.Now.Month == 2) 
+            {
+                prazdnik = "Veebruari pidu"; 
+            }
+
+            else if (DateTime.Now.Month == 3) { prazdnik = "Märts pidu"; }
+            else if (DateTime.Now.Month == 4) { prazdnik = "Aprill pidu"; }
+            else if (DateTime.Now.Month == 5) { prazdnik = "Mai pidu"; }
+            else if (DateTime.Now.Month == 6) { prazdnik = "Juuni pidu"; }
+            else if (DateTime.Now.Month == 7) { prazdnik = "Juuli pidu"; }
+            else if (DateTime.Now.Month == 8) { prazdnik = "August pidu"; }
+            else if (DateTime.Now.Month == 9) { prazdnik = "September pidu"; }
+            else if (DateTime.Now.Month == 10) { prazdnik = "Oktoober pidu"; }
+            else if (DateTime.Now.Month == 11) { prazdnik = "November pidu"; }
+            else if (DateTime.Now.Month == 12) { prazdnik = "Detsember pidu"; }
+
+
+            ViewBag.Message = "Ootan sind oma peole! " + prazdnik + ". Palun tule kindlasti!";
+
+            if (hour <= 16)
             {
                 ViewBag.Greeting = hour < 10 ? "Tere hommikust!" : "Tere päevast";
             }
-            else if(hour > 15)
+            else if(hour > 16)
             {
                 ViewBag.Greeting = hour < 20 ? "Tere õhtu!" : "Tere öö";
             }

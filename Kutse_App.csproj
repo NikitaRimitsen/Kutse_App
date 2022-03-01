@@ -191,9 +191,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\bad.png" />
     <Content Include="Images\Bye.jpg" />
+    <Content Include="Images\deti.jpg" />
     <Content Include="Images\great.jpg" />
+    <Content Include="Images\iconcomp.png" />
     <Content Include="Images\jdun.jpeg" />
     <Content Include="Images\Kutse.jpg" />
+    <Content Include="Images\tg2.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
