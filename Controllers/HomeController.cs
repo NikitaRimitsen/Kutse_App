@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -14,12 +16,12 @@ namespace Kutse_App.Controllers
         {
             ViewBag.Message = "Ootan sind oma peole! Palun tule kindlasti!";
             ViewBag.Tittle = "Kutse kõik";
-            string[] kuu = {"Jaanuari","Veebruari", "Märts", "Aprill" };
+            string[] peod = new string[12]{"Jaanuari pidu","Veebruari pidu", "Märts pidu", "Aprill pidu", "Mai pidu", "Juuni pidu", "Juuli pidu", "August pidu", "September pidu", "Oktoober pidu", "November pidu", "Detsember pidu" };
             int hour = DateTime.Now.Hour;
             int month = DateTime.Now.Month;
 
-            string prazdnik = "";
-            /*if (DateTime.Now.Month==1){prazdnik = "Jaanuari pidu";}
+            /*string prazdnik = "";
+            if (DateTime.Now.Month==1){prazdnik = "Jaanuari pidu";}
             else if (DateTime.Now.Month == 2){prazdnik = "Veebruari pidu";}
             else if (DateTime.Now.Month == 3){prazdnik = "Märts pidu";}
             else if (DateTime.Now.Month == 4){prazdnik = "Aprill pidu";}
@@ -31,29 +33,9 @@ namespace Kutse_App.Controllers
             else if (DateTime.Now.Month == 10){ prazdnik = "Oktoober pidu";}
             else if (DateTime.Now.Month == 11){prazdnik = "November pidu";}
             else if (DateTime.Now.Month == 12){prazdnik = "Detsember pidu";}*/
+   
 
-            if (DateTime.Now.Month == 1) 
-            {
-                prazdnik = "Jaanuari pidu";
-            }
-            else if (DateTime.Now.Month == 2) 
-            {
-                prazdnik = "Veebruari pidu"; 
-            }
-
-            else if (DateTime.Now.Month == 3) { prazdnik = "Märts pidu"; }
-            else if (DateTime.Now.Month == 4) { prazdnik = "Aprill pidu"; }
-            else if (DateTime.Now.Month == 5) { prazdnik = "Mai pidu"; }
-            else if (DateTime.Now.Month == 6) { prazdnik = "Juuni pidu"; }
-            else if (DateTime.Now.Month == 7) { prazdnik = "Juuli pidu"; }
-            else if (DateTime.Now.Month == 8) { prazdnik = "August pidu"; }
-            else if (DateTime.Now.Month == 9) { prazdnik = "September pidu"; }
-            else if (DateTime.Now.Month == 10) { prazdnik = "Oktoober pidu"; }
-            else if (DateTime.Now.Month == 11) { prazdnik = "November pidu"; }
-            else if (DateTime.Now.Month == 12) { prazdnik = "Detsember pidu"; }
-
-
-            ViewBag.Message = "Ootan sind oma peole! " + prazdnik + ". Palun tule kindlasti!";
+            ViewBag.Message = "Ootan sind oma peole! " + peod[month-1]  + ". Palun tule kindlasti!";
 
             if (hour <= 16)
             {
@@ -89,8 +71,10 @@ namespace Kutse_App.Controllers
         public ViewResult Ankeet(Guest guest)
         {
             E_mail(guest);
+            E_mailGuest(guest);
             if (ModelState.IsValid)
             {
+                ViewBag.Greeting = guest.Email;
                 return View("Thanks", guest);
             }
             else
@@ -101,6 +85,7 @@ namespace Kutse_App.Controllers
 
         public void E_mail(Guest guest)
         {
+
             try
             {
                 WebMail.SmtpServer = "smtp.gmail.com";
@@ -119,6 +104,30 @@ namespace Kutse_App.Controllers
             }
         }
 
+        MailMessage message = new MailMessage();
+        public void E_mailGuest(Guest guest)
+        {
+            string komu = guest.Email;
+            message.To.Add(new MailAddress(komu));
+            message.From = new MailAddress(komu);
+            message.Subject = "Ostetud piletid";
+            message.Body = guest.Name + "Ne zabud pridit v 01.05.2022";
+            string email = "programmeeriminetthk2@gmail.com";
+            string password = "2.kuursus tarpv20";
+            SmtpClient client = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(email, password),
+                EnableSsl = true,
+            };
+            /*try
+            {
+                client.Send(message);
+                Environment.Exit(0);
+            }
+            catch (Exception ex)
+            {}*/
+        }
 
     }
 }
